@@ -1,0 +1,41 @@
+### 1. Buat Buku A (harus 201)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{"title":"Buku A","author":"Budi","isbn":"1234567890","stock":10}
+
+### 2. Buat Buku B (harus 201)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{"title":"Buku B","author":"Sari","isbn":"0987654321","stock":5}
+
+### 3. Validasi gagal (harus 400)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{"title":"","author":"X","isbn":"123","stock":-1}
+
+### 4. Tidak ditemukan (harus 404)
+GET http://localhost:3000/books/999
+
+### 5. ISBN duplikat (harus 409)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{"title":"Buku A","author":"Budi","isbn":"1234567890","stock":10}
+
+### 6. Transfer sukses (harus 201, stok 7 dan 8)
+POST http://localhost:3000/books/transfer
+Content-Type: application/json
+
+{"fromId":1,"toId":2,"qty":3}
+
+### 7. Transfer gagal (harus 400, stok tidak berubah)
+POST http://localhost:3000/books/transfer
+Content-Type: application/json
+
+{"fromId":1,"toId":2,"qty":999}
+
+### 8. Cek stok setelah transfer gagal
+GET http://localhost:3000/books
